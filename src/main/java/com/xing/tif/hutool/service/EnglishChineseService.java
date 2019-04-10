@@ -16,14 +16,14 @@ public class EnglishChineseService {
 	public String englishToChinese(String word) {
 		EnglishChineseClient client = new EnglishChineseClient();
 		String resStr = client.englishChinese(word, URL);
-		System.out.println(resStr);
+//		System.out.println(resStr);
 		return resStr;
 	}
 
 	public String weater(Map<String,Object> map){
 		EnglishChineseClient client = new EnglishChineseClient();
 		String resStr = client.wether(map, URL);
-		System.out.println(resStr);
+//		System.out.println(resStr);
 		return resStr;
 	}
 

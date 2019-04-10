@@ -1,14 +1,11 @@
 package com.xing.tif.util;
 
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
+import org.dom4j.*;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
-
 //先加入dom4j.jar包
 /**
  * describe:
@@ -179,6 +176,38 @@ public class Xml2Str {
             String val = map.get(key).toString(); // 拿到值
             System.out.println(key + "=" + val);
         }
+    }
+
+    public static Map xmlElements(String xmlDoc) {
+        Map map = new HashMap<String, Object>(5);
+        // 读取并解析XML文档，SAXReader就是一个管道，用一个流的方式，把xml文件读出来
+        Document document = null;
+        try {
+            document = DocumentHelper.parseText(xmlDoc);
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+        //3.获取根节点
+        Element rootElement = document.getRootElement();
+        Iterator iterator = rootElement.elementIterator();
+        while (iterator.hasNext()) {
+            Element stu = (Element) iterator.next();
+            List<Attribute> attributes = stu.attributes();
+            System.out.println("======获取属性值======");
+            for (Attribute attribute : attributes) {
+                System.out.println(attribute.getValue());
+            }
+            System.out.println("======遍历子节点======");
+            Iterator iterator1 = stu.elementIterator();
+            QName qName = stu.getQName();
+            List content = stu.content();
+            map.put(qName, content.get(0));
+            while (iterator1.hasNext()) {
+                Element stuChild = (Element) iterator1.next();
+//                System.out.println("节点名："+stuChild.getName()+"---节点值："+stuChild.getStringValue());
+            }
+        }
+        return map;
     }
 }
 

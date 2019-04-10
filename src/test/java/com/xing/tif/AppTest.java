@@ -5,6 +5,7 @@ package com.xing.tif;
 
 import com.xing.tif.axis2.service.EnglishChineseService;
 import com.xing.tif.feign.client.FeignApi;
+import com.xing.tif.util.Xml2Str;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -59,8 +60,10 @@ public class AppTest {
 		Map<String,Object> map = new HashMap<>(1);
 		map.put("theCityName","重庆");
 		com.xing.tif.hutool.service.EnglishChineseService englishChineseService = new com.xing.tif.hutool.service.EnglishChineseService();
-		englishChineseService.weater(map);
-
+		String weater = englishChineseService.weater(map);
+		System.out.println(weater);
+		Map map1 = Xml2Str.xmlElements(weater);
+		System.out.println(map1.get("string"));
 	}
 
 }
